@@ -48,6 +48,6 @@ WORD	25	1266	734556	29382.240000	thud
 WORD	26	9545	744101	28619.269231	uprouses
 ```
 
-Here ```bot-random-word``` solved 26 words in 744101 guesses for an average of 281619.3
+Here ```bot-random-word``` solved 26 words in 744101 guesses for an average of 28619.3
 guesses per word. Can you do better?
 
