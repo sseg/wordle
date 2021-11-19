@@ -3,6 +3,8 @@
 
 import random
 
+random.seed('')
+
 
 g_wordlists = {}
 

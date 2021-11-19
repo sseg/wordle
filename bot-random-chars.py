@@ -3,6 +3,7 @@
 
 import random
 
+random.seed('')
 
 def play(state):
     guess_num, secret_hash, last_guess, last_score = state.split()
