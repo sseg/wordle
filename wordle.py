@@ -68,6 +68,7 @@ def play_word(bot, secret):
     secret_hash = hashlib.sha256((MAGIC + secret).encode()).hexdigest()[:7]
     while 1:
         guess = get_play(bot, guess_num, secret_hash, guess, score)
+        score = calc_score(secret, guess)
         sys.stdout.write('PLAY\t%d\t%s\t%s\t%s\t%s\n' % (guess_num, secret_hash, secret, guess, score))
         if guess == secret:
             return guess_num
