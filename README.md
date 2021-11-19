@@ -35,7 +35,7 @@ wrong place (the secret was "apple").
 To "score" your bot:
 
 ```
-$ python wordle.py wordlist sowpods\_short.txt bot-random-word.play | grep WORD | tail
+$ python wordle.py wordlist sowpods-short.txt bot-random-word.play | grep WORD | tail
 WORD	17	4770	393284	23134.352941	nasalizations
 WORD	18	68531	461815	25656.388889	nasalize
 WORD	19	24740	486555	25608.157895	nasalized
