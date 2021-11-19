@@ -111,7 +111,7 @@ def main(argv):
         if 2 == len(argv):
             secret = argv[1]
         else:
-            secret = random.choice(list(filter(lambda x: len(x) == 5, load_wordlist('sowpods.txt'))))
+            secret = random.choice(list(filter(lambda x: len(x) == 5 and len(set(list(x))) == 5, load_wordlist('sowpods.txt'))))
         x = play_human(secret)
         return x
     elif 'help' == c:
