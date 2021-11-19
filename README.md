@@ -1,5 +1,7 @@
-wordle -- botfight harness for wordle game
-==========================================
+wordle
+======
+
+This is a harness to write bots that play wordle.
 
 See:
 
@@ -17,25 +19,26 @@ To test a bot named "play" in "my-bot.py" against the word "apple":
 $ python wordle.py word apple my-bot.play
 ```
 
-To test your bot against a dictionary:
+To test your bot against a wordlist:
 
 ```
 $ python wordle.py wordlist wordlist.txt my-bot.play
 ```
 
 To write a bot, write a function `play` in a python file that takes a
-string `state`. `state` is a looks like this:
+string `state`. `state` looks like:
 
 ```2 abcd123 adept 31221```
 
 This is guess #2, the secret word has a hash of `abcd123`, your last guess was
-`adept`, the first letter was correct, the third and fourth letters are in the
-wrong place (the secret was "apple").
+`adept`, the first letter was correct (indicated by a `3`), the third and fourth
+letters are in the wrong place (`2`), and the second and fifth letters do not appear
+in the secret word (`1`); here the secret was "apple".
 
 To "score" your bot:
 
 ```
-$ python wordle.py wordlist sowpods-short.txt bot-random-word.play | grep WORD | tail
+$ python wordle.py wordlist sowpods-sample.txt bot-random-word.play | grep WORD | tail
 WORD	17	4770	393284	23134.352941	nasalizations
 WORD	18	68531	461815	25656.388889	nasalize
 WORD	19	24740	486555	25608.157895	nasalized
