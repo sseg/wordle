@@ -13,7 +13,7 @@ To play against the computer:
 $ python wordle.py human
 ```
 
-To test a bot named "play" in "my-bot.py" against the word "apple":
+To test a bot named `play` in `my-bot.py` against the word "apple":
 
 ```
 $ python wordle.py word apple my-bot.play
@@ -30,10 +30,10 @@ string `state`. `state` looks like:
 
 ```2 abcd123 adept 31221```
 
-This is guess #2, the secret word has a hash of `abcd123`, your last guess was
-`adept`, the first letter was correct (indicated by a `3`), the third and fourth
-letters are in the wrong place (`2`), and the second and fifth letters do not appear
-in the secret word (`1`); here the secret was "apple".
+This is guess number `2`, the secret word (in this example it's "apple") has a
+hash of `abcd123`, your last guess was `adept`, the first letter was correct
+(indicated by a `3`), the third and fourth letters are in the wrong place (`2`),
+and the second and fifth letters do not appear in the secret word (`1`).
 
 To "score" your bot:
 
