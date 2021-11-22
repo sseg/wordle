@@ -38,19 +38,19 @@ and the second and fifth letters do not appear in the secret word (`1`).
 To "score" your bot:
 
 ```
-$ python wordle.py wordlist sowpods-sample.txt bot-random-word.play | grep WORD | tail
-WORD	17	4770	393284	23134.352941	nasalizations
-WORD	18	68531	461815	25656.388889	nasalize
-WORD	19	24740	486555	25608.157895	nasalized
-WORD	20	163797	650352	32517.600000	oxazines
-WORD	21	31946	682298	32490.380952	pranksters
-WORD	22	10306	692604	31482.000000	refurbishment
-WORD	23	8152	700756	30467.652174	secaloses
-WORD	24	32534	733290	30553.750000	stapedes
-WORD	25	1266	734556	29382.240000	thud
-WORD	26	9545	744101	28619.269231	uprouses
+$ python wordle.py wordlist sowpods-sample-5s.txt bot-random-word.play | grep WORD | tail
+WORD	80	16662	708084	8851.050000	toyos
+WORD	81	10504	718588	8871.456790	tufas
+WORD	82	9654	728242	8881.000000	umped
+WORD	83	10280	738522	8897.855422	vacua
+WORD	84	24327	762849	9081.535714	vines
+WORD	85	2512	765361	9004.247059	walls
+WORD	86	1078	766439	8912.081395	whews
+WORD	87	28879	795318	9141.586207	wodge
+WORD	88	11686	807004	9170.500000	yauds
+WORD	89	515	807519	9073.247191	zetas
 ```
 
-Here ```bot-random-word``` solved 26 words in 744101 guesses for an average of 28619.3
+Here ```bot-random-word``` solved 89 words in 807519 guesses for an average of 9073.2
 guesses per word. Can you do better?
 

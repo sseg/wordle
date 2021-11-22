@@ -17,6 +17,11 @@ to test a bot named "play" in "my-bot.py" against the word "apple":
 to test your bot against a dictionary:
 
    $ python wordle.py wordlist wordlist.txt my-bot.play
+
+to play 1000 games using randomly chosed words from a wordlist:
+
+    $ python wordle.py wordlist wordlist.txt my-bot.play 1000
+
 '''
 
 
@@ -24,6 +29,14 @@ import sys, importlib, hashlib, random
 
 
 MAGIC = 'WORDLE'
+
+
+g_random = None
+def get_random():
+    global g_random
+    if None == g_random:
+        g_random = random.Random(MAGIC)
+    return g_random
 
 
 def load_wordlist(fn):
@@ -75,14 +88,21 @@ def play_word(bot, secret):
         guess_num += 1
 
 
-def play_wordlist(bot, wordlist):
+def play_wordlist(bot, wordlist, n):
     total_guesses = 0
-    n = 0
-    for word in wordlist:
+    if 0 == n:
+        count = len(wordlist)
+    else:
+        count = n
+    for i in range(count):
+        if 0 != n:
+            word = get_random().choice(wordlist)
+        else:
+            word = wordlist[i]
         guesses = play_word(bot, word)
         total_guesses += guesses
-        n += 1
-        sys.stdout.write('WORD\t%d\t%d\t%d\t%f\t%s\n' % (n, guesses, total_guesses, total_guesses / float(n), word))
+        i += 1
+        sys.stdout.write('WORD\t%d\t%d\t%d\t%f\t%s\n' % (i, guesses, total_guesses, total_guesses / float(i), word))
     return total_guesses
 
 
@@ -112,7 +132,7 @@ def main(argv):
         if 2 == len(argv):
             secret = argv[1]
         else:
-            secret = random.choice(list(filter(lambda x: len(x) == 5 and len(set(list(x))) == 5, load_wordlist('sowpods.txt'))))
+            secret = get_random().choice(list(filter(lambda x: len(x) == 5 and len(set(list(x))) == 5, load_wordlist('sowpods.txt'))))
         x = play_human(secret)
         return x
     elif 'help' == c:
@@ -131,8 +151,11 @@ def main(argv):
     elif 'wordlist' == c:
         fn_wordlist = argv[1]
         bot = load_bot(argv[2])
+        n = 0
+        if 4 == len(argv):
+            n = int(argv[3])
         wordlist = load_wordlist(fn_wordlist)
-        x = play_wordlist(bot, wordlist)
+        x = play_wordlist(bot, wordlist, n)
         return x
     else:
         print(USAGE)
