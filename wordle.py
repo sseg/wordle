@@ -6,22 +6,14 @@ This is a harness to write bots that play wordle.
 
 See: https://www.powerlanguage.co.uk/wordle/
 
-to play against the computer:
+To play against the computer:
 
    $ python wordle.py human
 
-to test a bot named "play" in "my-bot.py" against the word "apple":
+To test a bot named "play" in "my-bot.py" against 100 random words in
+wordlist "sowpods_5s.txt":
 
-   $ python wordle.py word apple my-bot.play
-
-to test your bot against a dictionary:
-
-   $ python wordle.py wordlist wordlist.txt my-bot.play
-
-to play 1000 games using randomly chosed words from a wordlist:
-
-    $ python wordle.py wordlist wordlist.txt my-bot.play 1000
-
+   $ python wordle.py bot my-bot.play sowpods_5s.txt 100
 '''
 
 
@@ -40,9 +32,9 @@ def get_random():
 
 
 def load_wordlist(fn):
-    a = []
+    a = set()
     for i in open(fn).readlines():
-        a.append(i[:-1])
+        a.add(i[:-1])
     return a
 
 
@@ -59,7 +51,9 @@ def get_play(bot, guess_num, secret_hash, last_guess, last_score):
     return response
 
 
-def calc_score(secret, guess):
+def calc_score(secret, guess, wordlist):
+    if not guess in wordlist:
+        return '0' * len(secret)
     a = []
     for i, ch in enumerate(secret):
         g = '-'
@@ -74,43 +68,41 @@ def calc_score(secret, guess):
     return ''.join(a)
 
 
-def play_word(bot, secret):
-    guess_num = 0
+def play_word(bot, secret, wordlist):
+    guess_num = 1
     guess = '-' * len(secret)
-    score = calc_score(secret, guess)
+    score = calc_score(secret, guess, wordlist)
     secret_hash = hashlib.sha256((MAGIC + secret).encode()).hexdigest()[:7]
     while 1:
         guess = get_play(bot, guess_num, secret_hash, guess, score)
-        score = calc_score(secret, guess)
+        score = calc_score(secret, guess, wordlist)
         sys.stdout.write('PLAY\t%d\t%s\t%s\t%s\t%s\n' % (guess_num, secret_hash, secret, guess, score))
         if guess == secret:
             return guess_num
         guess_num += 1
 
 
-def play_wordlist(bot, wordlist, n):
+def play_bot(bot, wordlist, n):
     total_guesses = 0
     if 0 == n:
         count = len(wordlist)
     else:
         count = n
+    wordlist_as_list = sorted(list(wordlist))
     for i in range(count):
-        if 0 != n:
-            word = get_random().choice(wordlist)
-        else:
-            word = wordlist[i]
-        guesses = play_word(bot, word)
+        word = get_random().choice(wordlist_as_list)
+        guesses = play_word(bot, word, wordlist)
         total_guesses += guesses
         i += 1
         sys.stdout.write('WORD\t%d\t%d\t%d\t%f\t%s\n' % (i, guesses, total_guesses, total_guesses / float(i), word))
     return total_guesses
 
 
-def play_human(secret):
+def play_human(secret, wordlist):
     guess_num = 0
     guess = '-' * len(secret)
     while 1:
-        score = calc_score(secret, guess)
+        score = calc_score(secret, guess, wordlist)
         sys.stdout.write('guess_num: %d, last_guess: %s, last_score: %s\n' % (guess_num, guess, score))
         sys.stdout.write('Your guess?\n')
         guess = sys.stdin.readline().strip()
@@ -129,33 +121,32 @@ def main(argv):
     if 0:
         pass
     elif 'human' == c:
-        if 2 == len(argv):
-            secret = argv[1]
+        if 1 < len(argv):
+            wordlist = load_wordlist(argv[1])
         else:
-            secret = get_random().choice(list(filter(lambda x: len(x) == 5 and len(set(list(x))) == 5, load_wordlist('sowpods.txt'))))
-        x = play_human(secret)
+            wordlist = load_wordlist('sowpods_5s.txt')
+        secret = get_random().choice(list(wordlist))
+        if 2 == len(argv):
+            secret = argv[2]
+        x = play_human(secret, wordlist)
         return x
     elif 'help' == c:
         print(USAGE)
         sys.exit()
     elif 'score' == c:
-        secret = argv[1]
-        guess = argv[2]
-        x = calc_score(secret, guess)
+        wordlist = load_wordlist(argv[1])
+        secret = argv[2]
+        guess = argv[3]
+        x = calc_score(secret, guess, wordlist)
         print(x)
-    elif 'word' == c:
-        secret = argv[1]
-        bot = load_bot(argv[2])
-        x = play_word(bot, secret)
-        return x
-    elif 'wordlist' == c:
+    elif 'bot' == c:
         fn_wordlist = argv[1]
         bot = load_bot(argv[2])
         n = 0
         if 4 == len(argv):
             n = int(argv[3])
         wordlist = load_wordlist(fn_wordlist)
-        x = play_wordlist(bot, wordlist, n)
+        x = play_bot(bot, wordlist, n)
         return x
     else:
         print(USAGE)
