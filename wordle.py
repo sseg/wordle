@@ -13,7 +13,7 @@ To play against the computer:
 To test a bot named "play" in "my-bot.py" against 100 random words in
 wordlist "sowpods_5s.txt":
 
-   $ python wordle.py bot my-bot.play sowpods_5s.txt 100
+   $ python wordle.py bot sowpods_5s.txt my-bot.play 100
 '''
 
 
