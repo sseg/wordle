@@ -11,9 +11,9 @@ To play against the computer:
    $ python wordle.py human
 
 To test a bot named "play" in "my-bot.py" against 1000 random words in
-wordlist "sowpods_5s.txt":
+wordlist "sowpods5.txt":
 
-   $ python wordle.py bot sowpods_5s.txt my-bot.play 1000
+   $ python wordle.py bot sowpods5.txt my-bot.play 1000
 '''
 
 
