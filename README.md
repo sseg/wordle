@@ -32,19 +32,19 @@ and the second and fifth letters do not appear in the secret word (`1`).
 To "score" your bot:
 
 ```
-(venv) colins-air:wordle saunders$ python3 wordle.py bot sowpods.txt bot-random-word.play 10 | grep WORD
-WORD	1	4947	4947	4947.000000	exactors
-WORD	2	27187	32134	16067.000000	polestar
-WORD	3	4211	36345	12115.000000	intermits
-WORD	4	13036	49381	12345.250000	wormhole
-WORD	5	34	49415	9883.000000	bimbo
-WORD	6	6658	56073	9345.500000	laser
-WORD	7	2496	58569	8367.000000	muchacho
-WORD	8	52177	110746	13843.250000	miscarriage
-WORD	9	28619	139365	15485.000000	trawlnets
-WORD	10	5422	144787	14478.700000	nomograms
+$ python3 wordle.py bot sowpods\_5s.txt bot-3s.play 10 | grep WORD
+WORD    1       30      30      30.000000       gushy
+WORD    2       26      56      28.000000       steek
+WORD    3       9       65      21.666667       mosks
+WORD    4       17      82      20.500000       bourn
+WORD    5       23      105     21.000000       okapi
+WORD    6       18      123     20.500000       randy
+WORD    7       16      139     19.857143       psoas
+WORD    8       37      176     22.000000       rigor
+WORD    9       27      203     22.555556       clung
+WORD    10      42      245     24.500000       rawly
 ```
 
-Here ```bot-random-word``` solved 10 words in 144787 guesses for an average of 14478.7
+Here ```bot-3s``` solved 10 words in 245 guesses for an average of 24.5
 guesses per word. Can you do better?
 

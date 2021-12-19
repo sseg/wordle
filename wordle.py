@@ -10,10 +10,10 @@ To play against the computer:
 
    $ python wordle.py human
 
-To test a bot named "play" in "my-bot.py" against 100 random words in
+To test a bot named "play" in "my-bot.py" against 1000 random words in
 wordlist "sowpods_5s.txt":
 
-   $ python wordle.py bot sowpods_5s.txt my-bot.play 100
+   $ python wordle.py bot sowpods_5s.txt my-bot.play 1000
 '''
 
 
@@ -78,6 +78,8 @@ def play_word(bot, secret, wordlist):
         score = calc_score(secret, guess, wordlist)
         sys.stdout.write('PLAY\t%d\t%s\t%s\t%s\t%s\n' % (guess_num, secret_hash, secret, guess, score))
         if guess == secret:
+            return guess_num
+        if guess_num == len(wordlist):
             return guess_num
         guess_num += 1
 
