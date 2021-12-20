@@ -126,7 +126,7 @@ def main(argv):
         if 1 < len(argv):
             wordlist = load_wordlist(argv[1])
         else:
-            wordlist = load_wordlist('sowpods_5s.txt')
+            wordlist = load_wordlist('sowpods5.txt')
         secret = get_random().choice(list(wordlist))
         if 2 == len(argv):
             secret = argv[2]
